@@ -61,7 +61,6 @@ class Nav extends Component {
               <FontAwesomeIcon icon={faSadTear} style={{ fontSize: 60, color: 'rgb(321,127,33)' }} />
               <FontAwesomeIcon icon={faSadTear} style={{ fontSize: 60, color: 'rgb(100,211,0)' }} />
             </div>
-
             <h5 className="my-2 text-secondary">Sorry {this.props.user.name} time is up!!!</h5>
             <p className="text-secondary" style={{ fontSize: 20 }}>We will have to log you out automatically</p>
             <div style={{ marginTop: 20, marginBottom: 20 }}>
