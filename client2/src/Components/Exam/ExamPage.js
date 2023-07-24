@@ -24,9 +24,14 @@ export default class ExamPage extends Component {
 		window.scrollTo(0, 0);
 		try {
 			const response = await axios.get(`${apiRoot}/questions`);
+			const configData = await axios.get(`${apiRoot}/config`);
 			const { questions } = response.data;
-
-			let random_numbers = genrand(1, questions.length);
+			const { config } = configData.data;
+			console.log(config)
+			let random_numbers = genrand(
+				1,
+				parseInt(config.totalQue) || questions.length
+			);
 			let newArr = [];
 			for (let j = 0; j < random_numbers.length; j++) {
 				newArr.push(questions[random_numbers[j] - 1]);
@@ -257,7 +262,7 @@ export default class ExamPage extends Component {
 								}}
 								className="number_container col-md-12 mt-1 "
 							>
-								{questions.map((question, index) => {
+								{questions.slice(0, 20).map((question, index) => {
 									return (
 										<div
 											style={{ fontWeight: "600" }}

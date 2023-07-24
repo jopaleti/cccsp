@@ -62,13 +62,14 @@ app.post("/add", (req, res) => {
 });
 
 app.get("/questions", async (req, res) => {
-	const data = await Config.findOne();
-	const query = Question.find({ course: data.config.course });
+	const data = await Config.find();
+	const course = data[data.length - 1].config.course;
+	const query = Question.find({ course });
 	const queries = query.exec();
 	queries
 		.then((questions) => {
 			res.send({
-				questions: questions.slice(0, data.totalQue),
+				questions: questions,
 			});
 		})
 		.catch((err) => {
@@ -98,8 +99,8 @@ app.post("/setup", async (req, res) => {
 		config: req.body,
 		totalQue: req.body.totalQue,
 	});
-	await newConfig.save();
 
+	await newConfig.save();
 	User.updateOne(
 		{ usertype: "writters" },
 		{ $set: { users: [] } },
@@ -113,10 +114,8 @@ app.post("/setup", async (req, res) => {
 	);
 });
 app.get("/config", async (req, res) => {
-	const data = await Config.findOne();
-
-	console.log(data);
-	res.status(200).send({ config: data.config });
+	const data = await Config.find();
+	res.status(200).send({ config: data[data.length - 1].config });
 });
 app.post("/submit", (req, res) => {
 	const user_obj = {
@@ -135,7 +134,6 @@ app.post("/submit", (req, res) => {
 });
 
 app.get("/dash", async (req, res) => {
-	console.log(await User.find());
 	res.send({ user_data });
 });
 

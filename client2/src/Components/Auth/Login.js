@@ -178,7 +178,7 @@ export default class Login extends Component {
 	}
 	componentDidMount() {
 		console.log(this.state);
-		axios.get(`${apiRoot}/config`).then((res) => {
+		axios.get(`${apiRoot}/config/${this.state.course}`).then((res) => {
 			console.log(res.data.config);
 			this.setState({
 				course: res.data.config.course,

@@ -9,6 +9,7 @@ export default class ScheduleEvent extends Component {
 		this.state = {
 			time: 0,
 			course: "MATHEMATICS",
+			totalQue:20,
 			page: 1,
 			changeScreen: false,
 		};
@@ -19,6 +20,7 @@ export default class ScheduleEvent extends Component {
 			.post(`${apiRoot}/setup`, {
 				time: this.state.time,
 				course: this.state.course,
+				totalQue: this.state.totalQue,
 			})
 			.then((res) => {
 				if (res.data.set_complete) {
